@@ -1,0 +1,24 @@
+.tools_header {
+    cursor: move;
+    display: block;
+    border-radius: 5px;
+    padding: 20px 2px 2px 2px;
+    background-color: #fafafa;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+
+.tools {
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(83, 169, 63, 0.5);
+}
+
+.tools:hover {
+    background-color: rgb(83, 169, 63, 0.8);
+}

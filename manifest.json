@@ -1,0 +1,25 @@
+{
+    "name": "ReviewTip",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "CodeReview helper",
+    "homepage_url": "https://github.com/DongHyunSong/ReviewTip",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://review.tizen.org/*"
+            ],
+            "js": [
+                "review.tip.js"
+            ],
+            "css": [
+                "review.tip.css"
+            ]
+        }
+    ],
+    "permissions": [
+        "https://*/*",
+        "http://*/*",
+        "tabs"
+    ]
+}
