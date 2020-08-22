@@ -2,11 +2,11 @@
     cursor: move;
     display: block;
     border-radius: 5px;
-    padding: 20px 2px 2px 2px;
-    background-color: #fafafa;
+    padding: 3px;
+    background-color: #eeeeee;
     position: absolute;
-    top: 100px;
-    left: 100px;
+    top: 150px;
+    left: 1200px;
 }
 
 .tools {
@@ -20,5 +20,8 @@
 }
 
 .tools:hover {
-    background-color: rgb(83, 169, 63, 0.8);
+    background-color: rgb(83, 169, 63, 0.9);
+    width: 150px;
+    height: 250px;
+    transition: all .3s linear;
 }
