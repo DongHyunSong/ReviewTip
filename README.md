@@ -1,2 +1,2 @@
 # ReviewTip
- - Code review helper tools on chrome-extension
+ - chrome-extension of Code Review assistant
