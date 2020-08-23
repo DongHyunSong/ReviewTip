@@ -2,26 +2,44 @@
     cursor: move;
     display: block;
     border-radius: 5px;
-    padding: 3px;
+    padding: 5px;
     background-color: #eeeeee;
     position: absolute;
     top: 150px;
     left: 1200px;
+    width: 150px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .tools {
-    padding: 10px;
+    padding: 7px;
     border-radius: 5px;
-    display: inline-block;
+    display: none;
     font-weight: bold;
     color: white;
     cursor: pointer;
-    background-color: rgb(83, 169, 63, 0.5);
+    margin-top: 5px;
+    background-color: rgba(152, 222, 255, 0.911);
 }
 
 .tools:hover {
-    background-color: rgb(83, 169, 63, 0.9);
-    width: 150px;
-    height: 250px;
-    transition: all .3s linear;
+    background-color: rgba(118, 212, 255, 0.911);
+    width: 200px;
+    transition: all .3s linear; 
+}
+
+.menu_item {
+    border-radius: 3px;
+    margin-bottom: 3px;
+    padding: 5px;
+    width: 190px;
+    color: black;
+    background-color: #eee;
+    border: 1px solid #aaa;
+}
+
+.menu_item:hover {
+    border: 1px outset #aaa;
+    background-color: #bbb;
 }
