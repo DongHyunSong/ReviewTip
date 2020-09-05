@@ -40,49 +40,85 @@ function attachDragElement(elm) {
 }
 
 let currentUrl = '';
+let codeReviewSystem = '';
 function getCurrentCommit() {
   currentUrl = window.location.href;
+  if (currentUrl.indexOf('review.tizen.org') > -1) {
+    codeReviewSystem = 'gerrit';
+  } else if (currentUrl.indexOf('github') > -1) {
+    codeReviewSystem = 'github';
+  } else {
+    codeReviewSystem = 'swarm';
+  }
 }
 
-function makeMenuItem(menu_title) {
+function makeMenuItem(menuTitle, defaultAction) {
   let div = document.createElement('div');
   div.className = 'menu_item';
-  div.innerHTML = menu_title;
-  review_tools.appendChild(div);
+  div.innerHTML = menuTitle;
+  div.addEventListener('click', defaultAction, false);
+  reviewTools.appendChild(div);
+}
+
+function mekeNote() {
+  let div = document.createElement('div');
+  div.id = 'note';
+  div.style.display = 'none';
+  div.innerHTML = `<textarea class='notepad' rows="5" cols="60"></textarea>`;
+  let windowKeyEvent = document.onkeypress;
+  document.onkeypress = () => {};
+  div.addEventListener('click', () => { 
+    div.focus();
+    event.preventDefault();
+  }, false)
+  reviewTools.appendChild(div);
 }
 
 let menuItemVisible = false;
+let onMouseMove = false;
 function showMenuItem() {
+  if (onMouseMove) {
+    return;
+  }
   getCurrentCommit();
   if (!menuItemVisible) {
     menuItemVisible = true;
     makeMenuItem('Code Smell');
-    makeMenuItem('Notes');
-    review_tools.style.display = 'inline-block';
+    makeMenuItem('Notes', () => {
+      let noteElm = document.getElementById('note');
+      if (noteElm.style.display == 'block') {
+        noteElm.style.display = 'none';
+      } else {
+        noteElm.style.display = 'block';
+      }
+    });
+    mekeNote();
+    reviewTools.style.display = 'inline-block';
   } else {
     menuItemVisible = false;
-    review_tools.style.display = 'none';
-    review_tools.innerHTML = '';
+    reviewTools.style.display = 'none';
+    reviewTools.innerHTML = '';
   }
 }
+
 
 let inject = () => {
   console.log(`Hello! ReviewTip`);
 
-  let review_tools_header = document.createElement('div');
-  review_tools_header.id = 'review_tools_header';
-  review_tools_header.className = 'tools_header';
-  review_tools_header.innerHTML = `<div id='review_tools_title'>ReviewTools</div>`;
+  let reviewToolsHeader = document.createElement('div');
+  reviewToolsHeader.id = 'reviewToolsHeader';
+  reviewToolsHeader.className = 'tools_header';
+  reviewToolsHeader.innerHTML = `<div id='review_tools_title'>ReviewTools</div>`;
 
-  let review_tools = document.createElement('div');;
-  review_tools.id = 'review_tools';
-  review_tools.className = 'tools';
+  let reviewTools = document.createElement('div');;
+  reviewTools.id = 'reviewTools';
+  reviewTools.className = 'tools';
 
-  review_tools_header.appendChild(review_tools);
-  document.body.appendChild(review_tools_header);
-  document.getElementById('review_tools_title').addEventListener('click', showMenuItem);
+  reviewToolsHeader.appendChild(reviewTools);
+  document.body.appendChild(reviewToolsHeader);
+  reviewToolsHeader.addEventListener('dblclick', showMenuItem);
 
-  attachDragElement(review_tools_header);
+  attachDragElement(reviewToolsHeader);
   getCurrentCommit();
 };
 

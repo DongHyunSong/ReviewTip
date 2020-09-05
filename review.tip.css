@@ -10,6 +10,7 @@
     width: 150px;
     text-align: center;
     font-weight: bold;
+    z-index: 99;
 }
 
 .tools {
@@ -21,12 +22,6 @@
     cursor: pointer;
     margin-top: 5px;
     background-color: rgba(152, 222, 255, 0.911);
-}
-
-.tools:hover {
-    background-color: rgba(118, 212, 255, 0.911);
-    width: 200px;
-    transition: all .3s linear; 
 }
 
 .menu_item {
