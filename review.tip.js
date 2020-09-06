@@ -1,8 +1,9 @@
 function attachDragElement(elm) {
+  var reviewTools = document.getElementById('reviewTools');
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   if (document.getElementById(elm.id)) {
     // if present, the header is where you move the DIV from:
-    document.getElementById(elm.id).onmousedown = dragMouseDown;
+    document.getElementById(elm.id).addEventListener('mousedown', dragMouseDown, false);
   } else {
     // otherwise, move the DIV from anywhere inside the DIV:
     elm.onmousedown = dragMouseDown;
@@ -14,9 +15,9 @@ function attachDragElement(elm) {
     // get the mouse cursor position at startup:
     pos3 = e.clientX;
     pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
+    document.addEventListener('mouseup', closeDragElement, false);
     // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
+    document.addEventListener('mousemove', elementDrag, false);
   }
 
   function elementDrag(e) {
@@ -30,12 +31,14 @@ function attachDragElement(elm) {
     // set the element's new position:
     elm.style.top = (elm.offsetTop - pos2) + "px";
     elm.style.left = (elm.offsetLeft - pos1) + "px";
+    reviewTools.style.top = (elm.offsetTop - pos2 + 30) + "px";
+    reviewTools.style.left = (elm.offsetLeft - pos1) + "px";
   }
 
   function closeDragElement() {
     // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
+    document.removeEventListener('mouseup', closeDragElement, false);
+    document.removeEventListener('mousemove', elementDrag, false);
   }
 }
 
@@ -64,13 +67,17 @@ function mekeNote() {
   let div = document.createElement('div');
   div.id = 'note';
   div.style.display = 'none';
-  div.innerHTML = `<textarea class='notepad' rows="5" cols="60"></textarea>`;
-  let windowKeyEvent = document.onkeypress;
-  document.onkeypress = () => {};
-  div.addEventListener('click', () => { 
-    div.focus();
-    event.preventDefault();
-  }, false)
+  div.style.width = '300px';
+  div.style.height = '100px';
+
+  let notepad = document.createElement('textarea');
+  notepad.cols = 60;
+  notepad.rows = 5;
+  notepad.className = 'notepad';
+  notepad.onkeypress = () => {
+    event.stopPropagation();
+  }
+  div.appendChild(notepad);
   reviewTools.appendChild(div);
 }
 
@@ -108,15 +115,15 @@ let inject = () => {
   let reviewToolsHeader = document.createElement('div');
   reviewToolsHeader.id = 'reviewToolsHeader';
   reviewToolsHeader.className = 'tools_header';
-  reviewToolsHeader.innerHTML = `<div id='review_tools_title'>ReviewTools</div>`;
+  reviewToolsHeader.innerHTML = `<div id='reviewToolsTitle'>ReviewTools</div>`;
 
   let reviewTools = document.createElement('div');;
   reviewTools.id = 'reviewTools';
   reviewTools.className = 'tools';
 
-  reviewToolsHeader.appendChild(reviewTools);
   document.body.appendChild(reviewToolsHeader);
-  reviewToolsHeader.addEventListener('dblclick', showMenuItem);
+  document.body.appendChild(reviewTools);
+  document.getElementById('reviewToolsTitle').addEventListener('dblclick', showMenuItem);
 
   attachDragElement(reviewToolsHeader);
   getCurrentCommit();

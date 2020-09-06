@@ -6,7 +6,7 @@
     background-color: #eeeeee;
     position: absolute;
     top: 150px;
-    left: 1200px;
+    left: 1000px;
     width: 150px;
     text-align: center;
     font-weight: bold;
@@ -17,10 +17,14 @@
     padding: 7px;
     border-radius: 5px;
     display: none;
+    position: absolute;
+    top: 180px;
+    left: 1000px;
     font-weight: bold;
     color: white;
-    cursor: pointer;
+    cursor: hand;
     margin-top: 5px;
+    cursor: default;
     background-color: rgba(152, 222, 255, 0.911);
 }
 
@@ -37,4 +41,13 @@
 .menu_item:hover {
     border: 1px outset #aaa;
     background-color: #bbb;
+    cursor: pointer;
+}
+
+.notepad {
+    isolation: isolate;
+    border: 1px outset #aaa;
+    writing-mode: horizontal-tb;
+    z-index: 100;
+    cursor: text;
 }
